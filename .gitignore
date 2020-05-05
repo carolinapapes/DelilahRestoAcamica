@@ -1,0 +1,12 @@
+node_modules
+user:folder user$ git check-ignore -v ./secretnotes.md 
+.gitignore:4:secretnotes.md	./secretnotes.md
+user:folder user$ git check-ignore -v README.md 
+user:folder user$ git check-ignore -v .vscode/settings.json
+user:folder user$ git check-ignore -v .vscode/
+user:folder user$ git check-ignore -v imports/
+user:folder user$ git check-ignore -v imports/lib
+.gitignore:5:imports/lib/	imports/lib
+
+# Local History for Visual Studio Code
+.history/

@@ -1,0 +1,6 @@
+{
+	"PORT": 3000,
+	"jwtSecret": "jwtSecretK3y",
+	"mySql": "mysql://root:YourRootPassword@localhost:3306/delilah",
+	"mySqlStart": "mysql://root:YourRootPassword@localhost:3306"
+}

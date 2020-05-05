@@ -1,0 +1,1018 @@
+openapi: 3.0.0
+info:
+  title: Delilah Resto
+  description: API de módulo 3 de curso Desarrollo Web Full Stack de Acámica
+  version: '1.0'
+servers:
+- url: http://localhost:3000
+paths:
+  /register:
+    post:
+      tags:
+      - Usuarios
+      summary: REGISTRO
+      description: Registro siempre y cuando usuario y contraseña no existan.
+      operationId: REGISTRO
+      requestBody:
+        description: 'Datos usuario nuevo'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/REGISTROREQUEST'
+            example:
+              username: maria
+              password: maria
+              fullname: maria ana
+              adress: San Luis 11
+              mail: mariana@gmail
+              phone: 3419553662
+        required: true
+      responses:
+        201:
+          description: 'Usuario creado'
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                example: Usuario registrado con exito
+        400:
+          description: Bad Request
+        409:
+          description: Conflict
+      deprecated: false
+  /admin/register:
+    post:
+      tags:
+      - Usuarios
+      summary: REGISTRO (NEW ADMIN)
+      description: Crea un nuevo usuario con credenciales de administrador. Requiere Bearer Token de administrador.
+      operationId: REGISTRO(NEWADMIN)
+      parameters: []
+      requestBody:
+        description: 'Datos nuevo administrador'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/REGISTRO%28NEWADMIN%29REQUEST'
+            example:
+              username: admin2
+              password: admin2
+              fullname: admin
+              adress: admin
+              mail: admin2
+              phone: 341000000
+        required: true
+      responses:
+        201:
+          description: 'Usuario creado con exito'
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                example: Usuario registrado con exito
+              example: Usuario registrado con exito
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Noautorizado'
+              example:
+                error: Token invalido
+        400:
+          description: Bad Request        
+      deprecated: false
+  /login:
+    post:
+      tags:
+      - Usuarios
+      summary: LOGIN
+      description: User y admin login, siempre que la constraseña y nombre de usuarios sean correctos.
+      operationId: LOGIN
+      parameters: []
+      requestBody:
+        description: 'Nombre de usuario y pass'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LOGINREQUEST'
+            example:
+              username: mara
+              password: mara
+        required: true
+      responses:
+        201:
+          description: 'OK'
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                example: 'Tu token es: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEsImlzX2FkbWluIjoxLCJpYXQiOjE1ODg2NTc3NjJ9.6ydGR2EgWz2mQa1XyxvwGnI5eK2TjCZJ_M5bjSDU51o'
+        400:
+          description: Bad Request
+        409:
+          description: Conflict
+      deprecated: false
+  /admin/users:
+    get:
+      tags:
+      - Usuarios
+      summary: MOSTRAR USUARIOS (ADMIN)
+      description: Lista todos los ususarios. Requiere Bearer Token de administrador.
+      operationId: MOSTRARUSUARIOS(ADMIN)
+      parameters: []
+      responses:
+        200:
+          description: 'OK'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Autorizadook'
+              example:
+              - id: 1
+                username: admin
+                password: $2b$10$dnvWI20MDTmSabxrS9Kpg.RQU.PHeTFdbLcPPFPnnydnCtslzNwiy
+                fullname: admin
+                adress: admin
+                mail: admin@gmail.com
+                phone: 3417833992
+                is_admin: 1
+              - id: 2
+                username: anita
+                password: $2b$10$jUNegbp4CFEXvUji/b3uheRvwTUvDMPQTkXI8CTEWoC/nRaiy.E1C
+                fullname: Ana Perez
+                adress: Montevide 1840 Piso 11 Depto 1
+                mail: anita@gmail.com
+                phone: 341178907
+                is_admin: 0
+              - id: 3
+                username: bren
+                password: $2b$10$C0mpwqBLK0Z8NwC1iTY3EOmOGLzZok1AEnZH5cfIdkBTmVcwFITgi
+                fullname: Brenda Lopez
+                adress: Santa Fe 1000
+                mail: brena@gmail.com
+                phone: 341922883
+                is_admin: 0
+              - id: 4
+                username: estefi
+                password: $2b$10$HhnGlts7H5yPCej4s/50beFx1CyLaYR35HhXAcFOQCdml00TYqySW
+                fullname: Estefania Gonzalez
+                adress: Alvear 2002 Piso 3 Depto b
+                mail: estefi@gmail.com
+                phone: 341900884
+                is_admin: 0
+              - id: 5
+                username: franco
+                password: $2b$10$qwZp7VLyr/zci62KDlDDO.MFsQjchMYexQSMGGxzJepCdRnBguQI2
+                fullname: Franco Fernandez
+                adress: Av. del Huerto 650 Piso 15 Depto c
+                mail: francoa@gmail.com
+                phone: 341900337
+                is_admin: 0
+              - id: 6
+                username: mara
+                password: $2b$10$JW5Srtxp40bITifSGBaXK.TVHMTuLS/LVnWiBTDqiyJVZU.7PxqFO
+                fullname: Mara DiMaria
+                adress: Dorrego 349 Piso 4 Depto 3
+                mail: mara@gmail.com
+                phone: 3410090786
+                is_admin: 0
+              - id: 7
+                username: ire
+                password: $2b$10$olpepwuBmP.J2QzNpd8wTetMZh5.DQUxD6yXZq8YV6ucuiIFNrnJ6
+                fullname: Irene Bielsa
+                adress: Calle 32 860
+                mail: ire@gmail.com
+                phone: 3419903452
+                is_admin: 0
+              - id: 8
+                username: mica
+                password: $2b$10$DFs7VUmb8fQHmeORQCQh4uFmEgyqmh8LdrsFAjThN9XpJfSQNWzTq
+                fullname: Micaela Jimenez
+                adress: Balcarse 1624 Piso 1
+                mail: mica@gmail.com
+                phone: 3416854275
+                is_admin: 0
+              - id: 9
+                username: rafa
+                password: $2b$10$SkfQmY70Ey9sBUpFRQetzujmtDD1.3HDr8vQvI4.43Ml4BJXvBpTy
+                fullname: Rafael Lencina
+                adress: San Juan 529 Piso 12 Depto E
+                mail: rafa@gmail.com
+                phone: 3419088766
+                is_admin: 0
+              - id: 10
+                username: marian
+                password: $2b$10$HwC0gsSC9chqqFSaJDHGk.uE3kK/uR4iFuk2tbPdx/Uol4fyNt3AC
+                fullname: Mariano Rodriguez
+                adress: Paraguay 2020 Piso 1 Depto 6
+                mail: marian@gmail.com
+                phone: 341144202
+                is_admin: 0
+              - id: 11
+                username: caro
+                password: $2b$10$PISg/IXJsCDUp9zosoYg0.kxLofZPlx0UnP7ASl47saoLVDB/ai26
+                fullname: Carolina
+                adress: San Luis 11
+                mail: caro@gmail
+                phone: 3419553662
+                is_admin: 0
+              - id: 12
+                username: juana
+                password: $2b$10$tcEcxH/UUF7oxsI4p/TomOcDz1hfALnkgRH4mCbk42CrH45cLjOC2
+                fullname: Juana P
+                adress: San Luis 11
+                mail: juana@gmail
+                phone: 3419553662
+                is_admin: 0
+              - id: 13
+                username: juan
+                password: $2b$10$GZzYWpgv9a.QoN9Bg6IAeeXNbG1wKGJipcdq5Gx3sXhS9hGuRSvSy
+                fullname: Juan Perez
+                adress: San Luis 11
+                mail: juan@gmail
+                phone: 3419553662
+                is_admin: 0
+              - id: 14
+                username: maria
+                password: $2b$10$S9kM0VPKhIpParW2yLfmxuttzs3Ur9/fTvF8RgXBuMQ9povRlNE32
+                fullname: maria ana
+                adress: San Luis 11
+                mail: mariana@gmail
+                phone: 3419553662
+                is_admin: 0
+              - id: 15
+                username: admin2
+                password: $2b$10$T2K6LgXm3Al/WkMHOQCfV.Pgp6iFXH.mMNTikv1BLeOMM./FkzS4m
+                fullname: admin
+                adress: admin
+                mail: admin2
+                phone: 341000000
+                is_admin: 1
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Noautorizado'
+              example:
+                error: Token invalido
+        400:
+          description: Bad Request
+      deprecated: false
+  /misDatos:
+    get:
+      tags:
+      - Usuarios
+      summary: USER DATA
+      description: Muestra los datos del usuario. Requiere Bearer Token de dicho usuario.
+      operationId: USERDATA
+      parameters: []
+      responses:
+        200:
+          description: 'OK'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Datosusuariounico'
+              example:
+              - username: mara
+                adress: Dorrego 349 Piso 4 Depto 3
+                mail: mara@gmail.com
+                phone: 3410090786
+        400:
+          description: Bad Request
+      deprecated: false
+    put:
+      tags:
+      - Usuarios
+      summary: UPDATE DATA
+      description: Cambia datos de usuario en campos especificados. Requiere Bearer Token de dicho usuario.
+      operationId: UPDATEDATA
+      parameters: []
+      requestBody:
+        description: 'Datos que se desean cambiar'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UPDATEDATAREQUEST'
+            example:
+              password: maria
+              fullname: Maria Ana
+              adress: Corrientes 2020
+              phone: 341550669
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                example: Cambio realizado password = 'maria', fullname = 'Maria Ana', adress = 'Corrientes 2020', phone = '341550669'
+        400:
+          description: Bad Request
+      deprecated: false
+  /productos:
+    get:
+      tags:
+      - Productos
+      summary: LISTAR TODOS LOS PRODUCTOS
+      description: "Lista todos los productos no eliminados de la DB. No requiere ningun tipo de token."
+      operationId: LISTARTODOSLOSPRODUCTOS
+      parameters: []
+      responses:
+        200:
+          description: 'OK'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Listartodoslosproducto'
+              example:
+              - id: 1
+                title: Ravioles de carne y verdura
+                description: Incluye salsa a elección, pan y queso rallado.
+                img: https://images.deliveryhero.io/image/pedidosya/products/1131315_2014917164250.jpg?quality=80&width=500
+                price: 300
+                is_deleted: 0
+              - id: 2
+                title: Milanesa de ternera napolitana con papas bastón
+                description: Adicional a la guarnición.
+                img: https://images.deliveryhero.io/image/pedidosya/products/null_016f9de2-9ec7-419d-b6f6-885b48692798_20171025084410984.jpg?quality=80&width=500
+                price: 460
+                is_deleted: 0
+              - id: 3
+                title: Pascualina de verdura
+                description: Porción
+                img: https://images.deliveryhero.io/image/pedidosya/products/null_8e3bd169-8dd2-4239-8bd3-0761a3fef9ca_20171025084446628.jpg?quality=80&width=500
+                price: 210
+                is_deleted: 0
+              - id: 4
+                title: Tiramisú
+                description: Adicional crema
+                img: https://images.deliveryhero.io/image/pedidosya/products/818135-2847292a-d705-4692-82df-22aba5cb2432.jpg?quality=80&width=500
+                price: 95
+                is_deleted: 0
+              - id: 5
+                title: Rabas
+                description: Porción
+                img: https://images.deliveryhero.io/image/pedidosya/products/null_e8e993fb-230b-4568-b1f4-461be84b0fe8_20171025084533489.jpg?quality=80&width=500
+                price: 420
+                is_deleted: 0
+              - id: 6
+                title: Salmón rosado
+                description: Con puré de papas y rúcula al oliva
+                img: https://images.deliveryhero.io/image/pedidosya/products/null_523b2182-5adb-4936-8a32-b9380742de20_20171025084542615.jpg?quality=80&width=500
+                price: 720
+                is_deleted: 0
+              - id: 7
+                title: Tarta de cebolla y queso
+                description: Porción
+                img: https://images.deliveryhero.io/image/pedidosya/products/1131272_2014917164530.jpg?quality=80&width=200
+                price: 195
+                is_deleted: 0
+              - id: 8
+                title: Ensalada clásica
+                description: Lechuga, tomate, zanahoria y huevo.
+                img: https://images.deliveryhero.io/image/pedidosya/products/null_a81a5b17-8432-4ece-a91e-f842a6db6451_20171025084301223.jpg?quality=80&width=500
+                price: 275
+                is_deleted: 0
+              - id: 9
+                title: Mousse de chocolate
+                description: Porción
+                img: https://images.deliveryhero.io/image/pedidosya/products/null_5897cc9f-704d-4d57-bb99-4ced3a91b15f_20171025084425346.jpg?quality=80&width=500
+                price: 130
+                is_deleted: 0
+              - id: 10
+                title: Pollo solo
+                description: Opción spiedo al mediodia a partir de las 12.00
+                img: https://images.deliveryhero.io/image/pedidosya/products/818139-ee63c72c-971e-40b6-8198-8aed4257e139.jpg?quality=80&width=500
+                price: 390
+                is_deleted: 0
+      deprecated: false
+    post:
+      tags:
+      - Productos
+      summary: ADMIN CREAR PRODUCTO
+      description: "Crea nuevo producto. Requiere Bearer Token de administrador."
+      operationId: ADMINCREARPRODUCTO
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ADMINCREARPRODUCTOREQUEST'
+            example:
+              title: Tallarines con bolognesa
+              img: url1
+              description: Para 2
+              price: 20.600000000000001
+        required: true
+      responses:
+        201:
+          description: 'Creado'
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                example: Producto registrado con exito
+              example: Producto registrado con exito
+        400:
+          description: Bad Request
+      deprecated: false
+  /productos/{id}:
+    get:
+      tags:
+      - Productos
+      summary: BUSCAR PRODUCTO POR ID
+      description: "Modifica los datos indicados del producto del param.id indicado. Requiere Bearer Token de administrador."
+      operationId: BUSCARPRODUCTOPORID
+      parameters:
+      - name: id
+        in: path
+        description: 'id producto'
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+          example: 7
+      responses:
+        200:
+          description: 'OK'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BUSCARPRODUCTOPORID'
+              example:
+              - id: 7
+                title: Tarta de cebolla y queso
+                description: Porción
+                img: https://images.deliveryhero.io/image/pedidosya/products/1131272_2014917164530.jpg?quality=80&width=200
+                price: 195
+                is_deleted: 0
+        400:
+          description: Bad Request
+      deprecated: false
+    delete:
+      tags:
+      - Productos
+      summary: ADMIN ELIMINAR PRODUCTOS
+      description: Softdelete del item del param.id indicado. Requiere Bearer Token de administrador.
+      operationId: ADMINELIMINARPRODUCTOS
+      parameters:
+      - name: id
+        in: path
+        description: Id del producto
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+          example: 7
+      responses:
+        201:
+          description: 'OK'
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                example: Se elimino el producto
+        400:
+          description: Bad Request
+      deprecated: false
+    put:
+      tags:
+      - Productos
+      summary: ADMIN MODIFICAR PRODUCTOS
+      description: "Modifica los datos indicados del producto del param.id indicado. \n\nRequiere Bearer Token de administrador."
+      operationId: ADMINMODIFICARPRODUCTOS
+      parameters:
+      - name: id
+        in: path
+        description: Id producto
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+          example: 8
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ADMINMODIFICARPRODUCTOSREQUEST'
+            example:
+              description: Tarta completa
+        required: true
+      responses:
+        201:
+          description: ''
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                example: Cambio realizado description = 'Tarta completa'
+        400:
+          description: Bad Request
+      deprecated: false
+  /pedidos:
+    get:
+      tags:
+      - Pedidos
+      summary: PEDIDOS
+      description: Muestra los pedidos del usuario en sesion o todos si el usuario es admin. Requiere Bearer Token de usuario.
+      operationId: PEDIDOS
+      parameters: []
+      responses:
+        200:
+          description: 'OK'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Listadopedidosusuario'
+              example:
+              - estado: Nuevo
+                hora y dia: 2020-05-05T06:42:25Z
+                numero: 6
+                detalle: 1xTartade
+                pago: Efectivo
+                total: 195
+                usuario: mara
+                direccion: Dorrego 349 Piso 4 Depto 3
+                detalleProd:
+                - title: Tarta de cebolla y queso
+                  precio: 195
+                  cantidad: 1
+                detalleUser:
+                - phone: 3410090786
+                  mail: mara@gmail.com
+                  fullname: Mara DiMaria
+              - estado: Nuevo
+                hora y dia: 2020-05-05T06:42:25Z
+                numero: 8
+                detalle: 1xRaviole
+                pago: Efectivo
+                total: 300
+                usuario: mara
+                direccion: Dorrego 349 Piso 4 Depto 3
+                detalleProd:
+                - title: Ravioles de carne y verdura
+                  precio: 300
+                  cantidad: 1
+                detalleUser:
+                - phone: 3410090786
+                  mail: mara@gmail.com
+                  fullname: Mara DiMaria
+        400:
+          description: Bad Request
+      deprecated: false
+  /misPedidos:
+    get:
+      tags:
+      - Pedidos
+      summary: NUEVO PEDIDO
+      description: "Muestra los pedidos del usuario en sesion. Requiere Bearer Token de usuario."
+      operationId: NUEVOPEDIDO
+      parameters: []
+      responses:
+        201:
+          description: 'OK'
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                example: 'Se genero pedido por un total de: $2900'
+        400:
+          description: Bad Request
+      deprecated: false
+  /admin/pedidos/1:
+    put:
+      tags:
+      - Pedidos
+      summary: PEDIDOS ESTADOS
+      description: El admin puede modificar el estado de los pedidos
+      operationId: PEDIDOSESTADOS
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PEDIDOSESTADOSREQUEST'
+            example:
+              status: 3
+        required: true
+      responses:
+        201:
+          description: 'MODIFICADO'
+          headers: {}
+        400:
+          description: Bad Request
+      deprecated: false
+components:
+  schemas:
+    REGISTROREQUEST:
+      title: REGISTROREQUEST
+      required:
+      - username
+      - password
+      - fullname
+      - adress
+      - mail
+      - phone
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        fullname:
+          type: string
+        adress:
+          type: string
+        mail:
+          type: string
+        phone:
+          type: integer
+          format: int64
+      example:
+        username: maria
+        password: maria
+        fullname: maria ana
+        adress: San Luis 11
+        mail: mariana@gmail
+        phone: 3419553662
+    REGISTRO(NEWADMIN)REQUEST:
+      title: REGISTRO(NEWADMIN)REQUEST
+      required:
+      - username
+      - password
+      - fullname
+      - adress
+      - mail
+      - phone
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        fullname:
+          type: string
+        adress:
+          type: string
+        mail:
+          type: string
+        phone:
+          type: string
+      example:
+        username: admin2
+        password: admin2
+        fullname: admin
+        adress: admin
+        mail: admin2
+        phone: 341000000
+    Noautorizado:
+      title: Noautorizado
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: Token invalido
+    LOGINREQUEST:
+      title: LOGINREQUEST
+      required:
+      - username
+      - password
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      example:
+        username: mara
+        password: mara
+    Autorizadook:
+      title: Autorizadook
+      required:
+      - id
+      - username
+      - password
+      - fullname
+      - adress
+      - mail
+      - phone
+      - is_admin
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        username:
+          type: string
+        password:
+          type: string
+        fullname:
+          type: string
+        adress:
+          type: string
+        mail:
+          type: string
+        phone:
+          type: integer
+          format: int64
+        is_admin:
+          type: integer
+          format: int32
+      example:
+        id: 1
+        username: admin
+        password: $2b$10$dnvWI20MDTmSabxrS9Kpg.RQU.PHeTFdbLcPPFPnnydnCtslzNwiy
+        fullname: admin
+        adress: admin
+        mail: admin@gmail.com
+        phone: 3417833992
+        is_admin: 1
+    Datosusuariounico:
+      title: Datosusuariounico
+      required:
+      - username
+      - adress
+      - mail
+      - phone
+      type: object
+      properties:
+        username:
+          type: string
+        adress:
+          type: string
+        mail:
+          type: string
+        phone:
+          type: integer
+          format: int64
+      example:
+        username: mara
+        adress: Dorrego 349 Piso 4 Depto 3
+        mail: mara@gmail.com
+        phone: 3410090786
+    UPDATEDATAREQUEST:
+      title: UPDATEDATAREQUEST
+      required:
+      - password
+      - fullname
+      - adress
+      - phone
+      type: object
+      properties:
+        password:
+          type: string
+        fullname:
+          type: string
+        adress:
+          type: string
+        phone:
+          type: integer
+          format: int32
+      example:
+        password: maria
+        fullname: Maria Ana
+        adress: Corrientes 2020
+        phone: 341550669
+    Listartodoslosproducto:
+      title: Listartodoslosproducto
+      required:
+      - id
+      - title
+      - description
+      - img
+      - price
+      - is_deleted
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        description:
+          type: string
+        img:
+          type: string
+        price:
+          type: integer
+          format: int32
+        is_deleted:
+          type: integer
+          format: int32
+      example:
+        id: 1
+        title: Ravioles de carne y verdura
+        description: Incluye salsa a elección, pan y queso rallado.
+        img: https://images.deliveryhero.io/image/pedidosya/products/1131315_2014917164250.jpg?quality=80&width=500
+        price: 300
+        is_deleted: 0
+    ADMINCREARPRODUCTOREQUEST:
+      title: ADMINCREARPRODUCTOREQUEST
+      required:
+      - title
+      - img
+      - description
+      - price
+      type: object
+      properties:
+        title:
+          type: string
+        img:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+      example:
+        title: Tallarines con bolognesa
+        img: url1
+        description: Para 2
+        price: 20.600000000000001
+    BUSCARPRODUCTOPORID:
+      title: BUSCARPRODUCTOPORID
+      required:
+      - id
+      - title
+      - description
+      - img
+      - price
+      - is_deleted
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        description:
+          type: string
+        img:
+          type: string
+        price:
+          type: integer
+          format: int32
+        is_deleted:
+          type: integer
+          format: int32
+      example:
+        id: 7
+        title: Tarta de cebolla y queso
+        description: Porción
+        img: https://images.deliveryhero.io/image/pedidosya/products/1131272_2014917164530.jpg?quality=80&width=200
+        price: 195
+        is_deleted: 0
+    ADMINMODIFICARPRODUCTOSREQUEST:
+      title: ADMINMODIFICARPRODUCTOSREQUEST
+      required:
+      - description
+      type: object
+      properties:
+        description:
+          type: string
+      example:
+        description: Tarta completa
+    Listadopedidosusuario:
+      title: Listadopedidosusuario
+      required:
+      - estado
+      - hora y dia
+      - numero
+      - detalle
+      - pago
+      - total
+      - usuario
+      - direccion
+      - detalleProd
+      - detalleUser
+      type: object
+      properties:
+        estado:
+          type: string
+        hora y dia:
+          type: string
+        numero:
+          type: integer
+          format: int32
+        detalle:
+          type: string
+        pago:
+          type: string
+        total:
+          type: integer
+          format: int32
+        usuario:
+          type: string
+        direccion:
+          type: string
+        detalleProd:
+          type: array
+          items:
+            $ref: '#/components/schemas/DetalleProd'
+          description: ''
+        detalleUser:
+          type: array
+          items:
+            $ref: '#/components/schemas/DetalleUser'
+          description: ''
+      example:
+        estado: Nuevo
+        hora y dia: 2020-05-05T06:42:25Z
+        numero: 6
+        detalle: 1xTartade
+        pago: Efectivo
+        total: 195
+        usuario: mara
+        direccion: Dorrego 349 Piso 4 Depto 3
+        detalleProd:
+        - title: Tarta de cebolla y queso
+          precio: 195
+          cantidad: 1
+        detalleUser:
+        - phone: 3410090786
+          mail: mara@gmail.com
+          fullname: Mara DiMaria
+    DetalleProd:
+      title: DetalleProd
+      required:
+      - title
+      - precio
+      - cantidad
+      type: object
+      properties:
+        title:
+          type: string
+        precio:
+          type: integer
+          format: int32
+        cantidad:
+          type: integer
+          format: int32
+      example:
+        title: Tarta de cebolla y queso
+        precio: 195
+        cantidad: 1
+    DetalleUser:
+      title: DetalleUser
+      required:
+      - phone
+      - mail
+      - fullname
+      type: object
+      properties:
+        phone:
+          type: integer
+          format: int64
+        mail:
+          type: string
+        fullname:
+          type: string
+      example:
+        phone: 3410090786
+        mail: mara@gmail.com
+        fullname: Mara DiMaria
+    PEDIDOSESTADOSREQUEST:
+      title: PEDIDOSESTADOSREQUEST
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          type: string
+      example:
+        status: 3
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+- httpBearer: []
+tags:
+- name: Usuarios
+- name: Productos
+- name: Pedidos
+
+
+    
