@@ -6,7 +6,7 @@ El trabajo consiste en generar el backend de una web de pedidos de comidas.
 ## Instalación e inicialización del proyecto
 **0.**  Contar con Node.js, Postman y MySql
 
-**1.**  Descargar repositorio desde el siguiente `link`
+**1.**  Descargar repositorio desde el siguiente [`link`] https://github.com/carolinapapes/DelilahRestoAcamica.git
 
 **2.**  Instalar dependencias con `npm install`
 
