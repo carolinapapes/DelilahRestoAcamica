@@ -8,13 +8,13 @@ El trabajo consiste en generar el backend de una web de pedidos de comidas.
 
 **1.**  Descargar repositorio desde el siguiente [`link`](https://github.com/carolinapapes/DelilahRestoAcamica.git)
 
-**2.**  Instalar dependencias con `npm install`
+**2.**  Instalar dependencias con `npm install` en el directorio principal del proyecto
 
 **3.**  En el archivo configuration.json cambiar ruta, el password y el puerto al correspondiente a la conexión de `mySql` local
 
 **4.** Inicializar la base de datos desde el directorio principal del proyecto con `npm run start`
 
-**5.**  Iniciar el servidor con `npm run dev`
+**5.**  Iniciar el servidor con `npm run dev` en el directorio principal del proyecto
 
 
 ## Documentacion y testeo
