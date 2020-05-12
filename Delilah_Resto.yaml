@@ -598,14 +598,23 @@ paths:
         400:
           description: Bad Request
       deprecated: false
-  /admin/pedidos/1:
+  /admin/pedidos/{id}:
     put:
       tags:
       - Pedidos
       summary: PEDIDOS ESTADOS
       description: El admin puede modificar el estado de los pedidos
       operationId: PEDIDOSESTADOS
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        description: Id producto
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+          example: 8
       requestBody:
         description: ''
         content:
@@ -615,6 +624,30 @@ paths:
             example:
               status: 3
         required: true
+      responses:
+        201:
+          description: 'MODIFICADO'
+          headers: {}
+        400:
+          description: Bad Request
+      deprecated: false
+  /admin/pedidos/{id}/delete:
+    put:
+      tags:
+      - Pedidos
+      summary: PEDIDOS ELIMINAR
+      description: El admin puede hacer un softdelete del estado de los pedidos
+      operationId: PEDIDOSELIMINAR
+      parameters:
+      - name: id
+        in: path
+        description: Id producto
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+          example: 8
       responses:
         201:
           description: 'MODIFICADO'
@@ -850,7 +883,7 @@ components:
         title: Tallarines con bolognesa
         img: url1
         description: Para 2
-        price: 20.600000000000001
+        price: 20.60
     BUSCARPRODUCTOPORID:
       title: BUSCARPRODUCTOPORID
       required:
